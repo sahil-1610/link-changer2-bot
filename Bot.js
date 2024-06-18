@@ -2,7 +2,7 @@ const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 
 // Define the base URL globally
-const BASE_URL = 'https://pw.pwjarvis.tech?v=';
+const BASE_URL = 'https://pw.jarviss.workers.dev?v=';
 const PIXEL1 = "&quality=240";
 const PIXEL2 = "&quality=360";
 const PIXEL3 = "&quality=480";
