@@ -75,7 +75,7 @@ ${modifiedUrl}${PIXEL1},
 
 ${modifiedUrl}${PIXEL2},
 
-${modifiedUrl}${PIXEL3}
+${modifiedUrl}${PIXEL3},
                           
 powered by @omjibotz
                             `
