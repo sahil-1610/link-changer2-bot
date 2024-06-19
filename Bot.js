@@ -1,12 +1,8 @@
 const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 
-// Define the base URL globally
-const BASE_URL = 'https://pw.jarviss.workers.dev?v=';
-const PIXEL1 = "&quality=240";
-const PIXEL2 = "&quality=360";
-const PIXEL3 = "&quality=480";
-const PIXEL4 = "&quality=720";
+// Define the base URL template
+const BASE_URL_TEMPLATE = 'https://coral-dashing.glitch.me/video_ki_new_api?Vurl=https://d1d34p8vz63oiq.cloudfront.net/${key}/master.m3u8';
 
 // Define regex patterns
 const regexCloudfront = /cloudfront\.net\s*\/\s*(.*?)\//;
@@ -42,42 +38,37 @@ function createBot(token, requiredChannelId, logsChannelId) {
                 // User is subscribed to the channel
                 if (msg.text) {
                     let match;
-                    let modifiedUrl;
+                    let key;
 
                     // Check if the message contains a link matching the cloudfront pattern
                     if (regexCloudfront.test(msg.text)) {
                         match = msg.text.match(regexCloudfront);
-                        modifiedUrl = `${BASE_URL}${match[1]}`;
+                        key = match[1];
                     }
                     // Check if the message contains a link matching the pw.live pattern
                     else if (regexPwLive.test(msg.text)) {
                         match = msg.text.match(regexPwLive);
-                        modifiedUrl = `${BASE_URL}${match[0]}`;
+                        key = match[0];
                     }
                     // Check if the message contains a link with v= parameter
                     else if (regexVParam.test(msg.text)) {
                         match = msg.text.match(regexVParam);
-                        modifiedUrl = `${BASE_URL}${match[0]}`;
+                        key = match[0];
                     }
                     // Check if the message contains a link matching the bitgravity pattern
                     else if (regexBitgravity.test(msg.text)) {
                         match = msg.text.match(regexBitgravity);
-                        modifiedUrl = `${BASE_URL}${match[0]}`;
+                        key = match[0];
                     }
 
-                    // If a match is found, send the modified URL
-                    if (modifiedUrl) {
-                        bot.sendMessage(chatId, 
+                    // If a match is found, construct and send the modified URL
+                    if (key) {
+                        const modifiedUrl = BASE_URL_TEMPLATE.replace('${key}', key);
+                        bot.sendMessage(chatId,
                             ` 
 USE THIS LINK ON 1DM APP AND BOT:
                              
-${modifiedUrl}${PIXEL1},
-
-${modifiedUrl}${PIXEL2},
-
-${modifiedUrl}${PIXEL3},
-
-${modifiedUrl}${PIXEL4},
+${modifiedUrl}
                           
 powered by @omjibotz
                             `
@@ -89,7 +80,7 @@ powered by @omjibotz
                 }
             } else {
                 // User is not subscribed to the channel
-                bot.sendMessage(chatId, `Please join our channel to use this bot:  @omjibotz`);
+                bot.sendMessage(chatId, `Please join our channel to use this bot: @omjibotz`);
             }
         }).catch((error) => {
             console.error('Error fetching chat member status:', error);
@@ -99,6 +90,5 @@ powered by @omjibotz
 
     return bot;
 }
-
 
 module.exports = createBot;
