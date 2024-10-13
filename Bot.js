@@ -2,11 +2,11 @@ const TelegramBot = require('node-telegram-bot-api');
 require('dotenv').config();
 
 // Define the base URL globally
-const BASE_URL = 'https://pw.jarviss.workers.dev?v=';
-const PIXEL1 = "&quality=240";
-const PIXEL2 = "&quality=360";
-const PIXEL3 = "&quality=480";
-const PIXEL4 = "&quality=720";
+const BASE_URL = 'https://kashurtek.site?url=https://sec1.pw.live/';
+const PIXEL1 = "/master.mpd&quality=240";
+const PIXEL2 = "/master.mpd&quality=360";
+const PIXEL3 = "/master.mpd&quality=480";
+const PIXEL4 = "/master.mpd&quality=720";
 
 // Define regex patterns
 const regexCloudfront = /cloudfront\.net\s*\/\s*(.*?)\//;
@@ -76,6 +76,7 @@ ${modifiedUrl}${PIXEL1},
 ${modifiedUrl}${PIXEL2},
 
 ${modifiedUrl}${PIXEL3},
+
                           
 powered by @omjibotz
                             `
@@ -87,7 +88,7 @@ powered by @omjibotz
                 }
             } else {
                 // User is not subscribed to the channel
-                bot.sendMessage(chatId, `Please join our channel to use this bot:  @omjibotz`);
+                bot.sendMessage(chatId, `Please join our channel to use this bot:  @omjibotz `);
             }
         }).catch((error) => {
             console.error('Error fetching chat member status:', error);
