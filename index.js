@@ -6,7 +6,6 @@ const createBot = require("./Bot");
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 4000;
 
 app.get("/", (req, res) => {
     return res.json({
@@ -15,11 +14,10 @@ app.get("/", (req, res) => {
     });
 });
 
-app.listen(PORT, () => {
-    console.log(`App is listening at ${PORT}`);
-});
+// Remove app.listen and instead export the app
+module.exports = app;
 
-
+// Bot setup
 const token = process.env.TOKEN;
 const requiredChannelId = process.env.REQUIRED_CHANNEL_ID;
 const logsChannelId = process.env.LOGS_CHANNEL_ID;
